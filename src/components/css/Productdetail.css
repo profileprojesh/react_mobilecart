@@ -1,0 +1,21 @@
+.detail-container{
+    display: flex;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+}
+.first-section{
+    width: 50%;
+}
+.first-section>h3{
+    margin: 0;
+}
+.first-section>img{
+    width: 300px;
+
+}
+.btn-detail{
+    margin: .5rem 1rem;
+}
+
