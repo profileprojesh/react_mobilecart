@@ -24,7 +24,7 @@ return (
 
                 </div>
             </div>
-            <div class="btn-container">
+            <div className="btn-container">
                 <Link to='/'>
                 <button className='btn-detail'>Continue Shopping</button>
                 </Link>

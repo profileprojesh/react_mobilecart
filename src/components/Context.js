@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { storeProducts, detailProduct } from '../data'
-import ProductDetail from './ProductDetail'
 
 const ProductContext = React.createContext()
 
 function ProductProvider(props) {
     let [products, setProducts] = useState([])
-    let [productDetail, setProductDetail] = useState(detailProduct)
+    let [productDetail, setProductDetail] = useState({})
     let [cart, setCart] = useState([])
     let [modalOpen, setModalOpen] = useState(false)
-    let [modalProduct, setModalProduct] = useState(detailProduct)
+    let [modalProduct, setModalProduct] = useState({})
     let [total, setTotal] = useState(0)
     let [subTotal, setSubTotal] = useState(0)
     let [tax, setTax] = useState(0)
@@ -22,15 +21,21 @@ function ProductProvider(props) {
             const singleproduct = { ...item }
             products = [...products, singleproduct]
         })
-        setProducts(products)
+        setProducts(()=>products)
     }
 
     useEffect(() => {
         copyProduct()
+
+    },[])
+
+
+    useEffect(() => {
         calcTotal()
 
-    }, [products, cart])
+    },[cart, total])
 
+   
     let getProduct = (id) => {
         return products.find(item => item.id === id)
     }
@@ -61,8 +66,12 @@ function ProductProvider(props) {
         product.inCart = true
         product.count = 1
         product.total = product.price
-        setProducts(() => tempProducts)
+        setProducts(tempProducts)
         setCart(() => [...cart, product])
+        console.log("product",product)
+        console.log("products",products)
+        console.log("cart",cart)
+        calcTotal()
     }
 
     let openModal = (id) => {
@@ -82,7 +91,6 @@ function ProductProvider(props) {
         product.count += 1
         product.total = product.price * product.count
         setCart(() => [...tempcart])
-
     }
     let decrement = (id) => {
         let tempcart = [...cart]
@@ -109,8 +117,8 @@ function ProductProvider(props) {
         const product = tempproducts[index]
         product.inCart = false
         product.count = 0
-        setProducts(tempproducts)
-        setCart(tempcart)
+        setProducts(()=>tempproducts)
+        setCart(()=>tempcart)
     }
 
     let clearCart = () => {

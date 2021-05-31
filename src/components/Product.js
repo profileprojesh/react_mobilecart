@@ -5,6 +5,8 @@ import { ProductComsumer } from './Context'
 import { Link } from 'react-router-dom'
 
 export default function Product(props) {
+    console.log('incart value',props.item.inCart)
+
     return (
         <ProductComsumer>
             {
@@ -32,6 +34,8 @@ export default function Product(props) {
                             } 
                             
                             }>
+                
+                                
                                 {
                                     props.item.inCart ? (
                                         'in cart'
